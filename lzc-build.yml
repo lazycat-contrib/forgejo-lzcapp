@@ -1,0 +1,16 @@
+# manifest: 指定 lpk 包的 manifest.yml 文件路径
+manifest: ./manifest.yml
+
+# pkgout: lpk 包的输出路径
+pkgout: ./
+# contentdir: 指定打包的内容，将会打包到 lpk 中
+#contentdir: ./dist
+icon: ./icon.png
+
+
+compose_override:
+  services:
+    forgejo-server:
+      volumes:
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro

@@ -1,0 +1,51 @@
+{
+  "name": "Forgejo",
+  "package": "cloud.lazycat.app.forgejo",
+  "description": "Gitea 的一个硬分叉版本",
+  "homepage": "https://forgejo.org",
+  "author": "forgejo",
+  "app_features": [
+    "background_task"
+  ],
+  "subdomain": "fogejo",
+  "version": "10.0.0",
+  "iconPath": "icon.png",
+  "composePath": "docker-compose.yml",
+  "unsupported_platforms": [],
+  "lastRouteType": "from_compose",
+  "port_mappings": {
+    "server_3000_3000": {
+      "use": true,
+      "type": "http",
+      "path": "/",
+      "targetPath": "/"
+    },
+    "server_222_22": {
+      "use": true,
+      "type": "port",
+      "protocol": "tcp"
+    },
+    "forgejo-server_3000_3000": {
+      "use": true,
+      "type": "http",
+      "path": "/",
+      "targetPath": "/"
+    },
+    "forgejo-server_222_22": {
+      "use": true,
+      "type": "port",
+      "protocol": "tcp"
+    }
+  },
+  "image_codeberg.org_forgejo_forgejo_10": {
+    "originalImage": "codeberg.org/forgejo/forgejo:10",
+    "pushTarget": "lazycat",
+    "newImageName": "registry.lazycat.cloud/czyt/forgejo/forgejo:fa539141b967a89d",
+    "timestamp": "2025-02-18T14:35:12.885Z"
+  },
+  "forgejo-server_volume_/data_action": "emptyDir",
+  "forgejo-server_volume_/data_location": "app_data",
+  "forgejo-server_volume_/etc/timezone_action": "emptyDir",
+  "forgejo-server_volume_/etc/timezone_location": "app_data",
+  "forgejo-server_volume_/etc/localtime_action": "useContent"
+}
