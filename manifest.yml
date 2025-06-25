@@ -1,7 +1,7 @@
 lzc-sdk-version: "0.1"
 name: Forgejo
 package: cloud.lazycat.app.forgejo
-version: 10.0.1
+version: 11.2.0
 min_os_version: 1.3.0
 description: Gitea 的一个硬分叉版本
 homepage: https://forgejo.org
@@ -9,21 +9,19 @@ author: forgejo
 application:
   subdomain: fogejo
   background_task: true
-  multi_instance: false
-  gpu_accel: false
-  kvm_accel: false
-  usb_accel: false
   routes:
-    - /=http://forgejo-server.cloud.lazycat.app.forgejo.lzcapp:3000/
+    - /=http://forgejo-server:3000/
   public_path:
     - /
+    
   ingress:
     - protocol: tcp
       port: 22
       service: forgejo-server
+      
 services:
   forgejo-server:
-    image: registry.lazycat.cloud/czyt/forgejo/forgejo:fa539141b967a89d
+    image: registry.lazycat.cloud/czyt/forgejo/forgejo:d56a61dbc0446228
     environment:
       - USER_UID=1000
       - USER_GID=1000
