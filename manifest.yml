@@ -1,7 +1,7 @@
 lzc-sdk-version: "0.1"
 name: Forgejo
 package: cloud.lazycat.app.forgejo
-version: 11.2.0
+version: 11.0.2
 min_os_version: 1.3.0
 description: Gitea 的一个硬分叉版本
 homepage: https://forgejo.org
