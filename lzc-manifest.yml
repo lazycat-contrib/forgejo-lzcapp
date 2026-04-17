@@ -1,0 +1,22 @@
+application:
+  subdomain: fogejo
+  background_task: true
+  upstreams:
+    - location: /
+      backend: http://forgejo-server:3000/
+  public_path:
+    - /
+  ingress:
+    - protocol: tcp
+      port: 22
+      service: forgejo-server
+
+services:
+  forgejo-server:
+    # forgejoclone/forgejo:15.0.0
+    image: registry.lazycat.cloud/czyt/forgejoclone/forgejo:d85ed90eef5f5915
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    binds:
+      - /lzcapp/var/data:/data

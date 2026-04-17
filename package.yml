@@ -1,0 +1,15 @@
+package: cloud.lazycat.app.forgejo
+version: 15.0.0
+name: Forgejo
+description: Gitea 的一个硬分叉版本
+min_os_version: 1.5.0
+homepage: https://forgejo.org
+author: forgejo
+
+locales:
+  zh:
+    name: "Forgejo"
+    description: "Gitea 的一个硬分叉版本"
+  en:
+    name: "Forgejo"
+    description: "A hard-fork of Gitea"
