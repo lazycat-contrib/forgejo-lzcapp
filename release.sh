@@ -230,6 +230,10 @@ ESC_SRC=$(echo "$SOURCE_IMAGE" | sed 's/[\/&]/\\&/g')
 sed -i "s/^    # .*:.*/    # ${ESC_SRC}/" "$MANIFEST_FILE"
 note "  lzc-manifest.yml → 注释更新为: # ${SOURCE_IMAGE}"
 
+# ---- 备份修改后的文件（构建过程可能回写） ----
+MANIFEST_BAK=$(cat "$MANIFEST_FILE")
+PACKAGE_BAK=$(cat "$PACKAGE_FILE")
+
 # ============================
 # Step 3: 构建 LPK
 # ============================
@@ -239,6 +243,16 @@ note "🔨 Step 3/5: 构建 LPK..."
 lzc-cli project build -f "$BUILD_FILE" || die "构建 LPK 失败"
 [[ -f "$LPK_FILE" ]] || die "构建产物未找到: $LPK_FILE"
 note "  → ${LPK_FILE}"
+
+# ---- 恢复被构建可能回写的文件 ----
+if [[ "$(cat "$PACKAGE_FILE")" != "$PACKAGE_BAK" ]]; then
+  note "  ⚠️ 构建过程修改了 package.yml，正在恢复..."
+  printf '%s\n' "$PACKAGE_BAK" > "$PACKAGE_FILE"
+fi
+if [[ "$(cat "$MANIFEST_FILE")" != "$MANIFEST_BAK" ]]; then
+  note "  ⚠️ 构建过程修改了 lzc-manifest.yml，正在恢复..."
+  printf '%s\n' "$MANIFEST_BAK" > "$MANIFEST_FILE"
+fi
 
 # ============================
 # Step 4: 发布到应用商店
@@ -266,8 +280,8 @@ if [[ "$DO_COMMIT" == "1" ]]; then
   note ""
   note "📝 Step 5/5: Git 提交..."
 
-  git add "$PACKAGE_FILE" "$MANIFEST_FILE" "$CONFIG_FILE" 2>/dev/null || true
-  git add cloud.lazycat.app.*-v"${VERSION}".lpk 2>/dev/null || true
+  git add "$PACKAGE_FILE" "$MANIFEST_FILE"
+  git add "$LPK_FILE" 2>/dev/null || true
 
   if git diff --cached --quiet; then
     warn "没有文件变更，跳过 commit"
