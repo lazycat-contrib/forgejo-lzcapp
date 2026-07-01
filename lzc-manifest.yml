@@ -13,8 +13,8 @@ application:
 
 services:
   forgejo-server:
-    # forgejoclone/forgejo:15.0.2
-    image: registry.lazycat.cloud/czyt/forgejoclone/forgejo:8544f8ed4336df19
+    # forgejoclone/forgejo:15.0.3
+    image: registry.lazycat.cloud/czyt/forgejoclone/forgejo:e749113afe86a4d0
     environment:
       - USER_UID=1000
       - USER_GID=1000
