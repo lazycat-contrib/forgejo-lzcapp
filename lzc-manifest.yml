@@ -10,11 +10,11 @@ application:
     - protocol: tcp
       port: 22
       service: forgejo-server
-
 services:
   forgejo-server:
     # forgejoclone/forgejo:15.0.3
-    image: registry.lazycat.cloud/czyt/forgejoclone/forgejo:e749113afe86a4d0
+    # upstream: forgejoclone/forgejo:15.0.4
+    image: registry.lazycat.cloud/czyt/forgejoclone/forgejo:ca4ae8784f3f8129
     environment:
       - USER_UID=1000
       - USER_GID=1000
