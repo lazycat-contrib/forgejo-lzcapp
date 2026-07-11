@@ -1,0 +1,44 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/forgejo.lpk
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: forgejo
+
+build:
+  run_buildscript: false
+
+images:
+  - id: forgejo
+    target: service
+    service: forgejo-server
+    source: forgejoclone/forgejo
+    channel: stable
+    tag_regex: '^v?\d+\.\d+\.\d+$'
+    delivery:
+      mode: lazycat
+
+stores:
+  official:
+    enabled: true
+    skip_if_version_exists: true
+    create_if_missing: true
+    changelog_locales: [zh, en]
+    application:
+      language: zh
+      name: Forgejo
+      source: https://forgejo.org
+      source_author: forgejo
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Forgejo
+    summary: Forgejo 的 LazyCat 自动构建版本
