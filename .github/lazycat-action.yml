@@ -20,7 +20,7 @@ images:
   - id: forgejo
     target: service
     service: forgejo-server
-    source: forgejoclone/forgejo
+    source: codeberg.org/forgejo/forgejo
     channel: stable
     tag_regex: '^v?\d+\.\d+\.\d+$'
     delivery:
